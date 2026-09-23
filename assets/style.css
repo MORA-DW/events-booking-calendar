@@ -1,0 +1,586 @@
+/* ─── Events Booking Calendar — Frontend Styles v2.1.1 ─── */
+
+/* ── Base typography — proxima-nova throughout ── */
+.ebc-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    font-family: proxima-nova, sans-serif !important;
+    font-size: clamp(1rem, 0.956rem + 0.1408vw, 1.125rem) !important;
+    font-weight: 300;
+    font-style: normal;
+}
+
+/* Force proxima-nova on every child so no element falls back to the theme default */
+.ebc-wrapper * {
+    font-family: proxima-nova, sans-serif !important;
+}
+
+/* ── Filters ── */
+.ebc-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding: 14px 18px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e8e8e8;
+}
+
+.ebc-filter-form {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.ebc-filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ebc-filter-group label {
+    font-weight: 600;
+    font-size: 13px;
+    color: #555;
+    white-space: nowrap;
+    margin: 0;
+}
+
+.ebc-filter-group select {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    background: #fff;
+}
+
+.ebc-legend {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.ebc-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #444;
+}
+
+.ebc-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+/* ── Navigation ── */
+.ebc-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    gap: 12px;
+}
+
+.ebc-nav-btn {
+    padding: 8px 18px;
+    background: #1a1a2e;
+    color: #fff !important;
+    text-decoration: none !important;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.2s;
+    white-space: nowrap;
+    cursor: pointer;
+    border: none;
+}
+
+.ebc-nav-btn:hover { background: #2563eb; }
+
+.ebc-month-title {
+    margin: 0 !important;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    text-align: center;
+    color: #1a1a2e;
+    flex: 1;
+}
+
+/* ── Calendar Grid ── */
+.ebc-calendar {
+    border: 1px solid #dde1e7;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+
+.ebc-calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: #1a1a2e;
+}
+
+.ebc-day-name {
+    padding: 10px 4px;
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+    overflow: hidden;
+}
+
+.ebc-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* Prevent content from blowing out a column */
+    grid-auto-rows: minmax(96px, auto);
+}
+
+/* ── Day cell — fixed width, never grows wider than its column ── */
+.ebc-day {
+    min-height: 96px;
+    padding: 6px;
+    border-right: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    background: #fff;
+    /* Critical: prevent content from pushing the column wider */
+    min-width: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.ebc-day:nth-child(7n) { border-right: none; }
+.ebc-day-empty         { background: #f9fafb; }
+.ebc-today             { background: #eff6ff; }
+
+.ebc-day-number {
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.ebc-today .ebc-day-number {
+    background: #2563eb;
+    color: #fff;
+}
+
+/* ── Calendar event chip ── */
+.ebc-event {
+    display: block;          /* block so width is 100% of parent */
+    width: 100%;             /* fill the day cell */
+    box-sizing: border-box;
+    font-size: 10px;
+    padding: 2px 5px;
+    margin-bottom: 2px;
+    background: #f0f4ff;
+    border-radius: 4px;
+    cursor: pointer;
+    line-height: 1.35;
+    /* Truncation — never let a long title break the column */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: opacity .15s, background .15s;
+}
+
+.ebc-event:hover { opacity: .8; }
+
+.ebc-event.ebc-sold-out {
+    opacity: .5;
+    background: #f0f0f0;
+    cursor: default;
+}
+
+.ebc-event.ebc-sold-out:hover { opacity: .5; }
+
+.ebc-event-cal-time {
+    font-weight: 700;
+    color: #222;
+    margin-right: 2px;
+}
+
+.ebc-tag-full {
+    background: #fee2e2;
+    color: #dc2626;
+    font-size: 9px;
+    padding: 1px 3px;
+    border-radius: 3px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+/* ── Event Cards ── */
+.ebc-events-list h3 {
+    font-size: 20px !important;
+    margin: 0 0 18px !important;
+    color: #1a1a2e;
+    font-weight: 700 !important;
+}
+
+.ebc-event-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.07);
+    transition: box-shadow .2s;
+}
+
+.ebc-event-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,.12); }
+
+.ebc-event-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.ebc-event-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.ebc-event-date-badge { font-weight: 700; color: #1a1a2e; font-size: 14px; }
+.ebc-event-time-badge { color: #555; font-size: 13px; }
+
+.ebc-badge {
+    padding: 3px 10px;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.ebc-badge-loc { background: #64748b !important; }
+
+.ebc-event-card-title {
+    margin: 0 0 8px !important;
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #1a1a2e;
+}
+
+.ebc-event-card-excerpt {
+    color: #666;
+    font-size: 14px;
+    margin: 0 0 14px;
+    line-height: 1.6;
+}
+
+.ebc-seats-info   { white-space: nowrap; min-width: 120px; }
+.ebc-seats-avail  { color: #16a34a; font-weight: 700; font-size: 13px; display: block; margin-top: 4px; }
+.ebc-seats-full   { color: #dc2626; font-weight: 700; font-size: 13px; display: block; margin-top: 4px; }
+
+.ebc-seats-bar {
+    width: 100%;
+    height: 6px;
+    background: #e5e7eb;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.ebc-seats-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    transition: width .4s ease;
+}
+.ebc-bar-ok       .ebc-seats-bar-fill { background: #16a34a; }
+.ebc-bar-low      .ebc-seats-bar-fill { background: #f59e0b; }
+.ebc-bar-critical .ebc-seats-bar-fill { background: #ef4444; }
+.ebc-bar-full     .ebc-seats-bar-fill { background: #dc2626; }
+
+.ebc-btn-book {
+    background: #1a1a2e;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background .2s;
+}
+
+.ebc-btn-book:hover:not(:disabled) { background: #2563eb; }
+
+.ebc-btn-no-seats,
+.ebc-btn-book:disabled {
+    background: #e5e7eb;
+    color:      #9ca3af;
+    cursor:     not-allowed;
+}
+
+.ebc-btn-waitlist {
+    background:    transparent;
+    color:         #f59e0b;
+    border:        2px solid #f59e0b;
+    padding:       8px 16px;
+    border-radius: 6px;
+    cursor:        pointer;
+    font-size:     13px;
+    font-weight:   600;
+    margin-left:   8px;
+    transition:    background .2s, color .2s;
+}
+.ebc-btn-waitlist:hover {
+    background: #f59e0b;
+    color:      #fff;
+}
+
+.ebc-no-events {
+    text-align: center;
+    padding: 40px 20px;
+    color: #888;
+}
+
+/* ── Modal ────────────────────────────────────────────────────────────────── */
+#ebc-modal {
+    display:         none;
+    position:        fixed;
+    top:             0;
+    left:            0;
+    width:           100%;
+    height:          100%;
+    background:      rgba(0, 0, 0, .6);
+    z-index:         2147483647;
+    align-items:     center;
+    justify-content: center;
+    padding:         16px;
+    box-sizing:      border-box;
+}
+
+#ebc-modal.ebc-open { display: flex; }
+
+.ebc-modal-inner {
+    background:    #fff;
+    border-radius: 12px;
+    padding:       32px;
+    max-width:     540px;
+    width:         100%;
+    max-height:    90vh;
+    overflow-y:    auto;
+    position:      relative;
+    box-shadow:    0 24px 64px rgba(0, 0, 0, .3);
+    animation:     ebc-slide-in .2s ease-out;
+}
+
+@keyframes ebc-slide-in {
+    from { opacity: 0; margin-top: -20px; }
+    to   { opacity: 1; margin-top: 0; }
+}
+
+.ebc-modal-close {
+    position:    absolute;
+    top:         14px;
+    right:       16px;
+    background:  none;
+    border:      none;
+    font-size:   26px;
+    cursor:      pointer;
+    color:       #888;
+    line-height: 1;
+    padding:     4px 6px;
+    border-radius: 4px;
+    transition:  color .15s, background .15s;
+    z-index:     1;
+}
+
+.ebc-modal-close:hover { color: #000; background: #f0f0f0; }
+
+.ebc-modal-inner h3 {
+    margin:        0 0 6px !important;
+    font-size:     20px !important;
+    font-weight:   700 !important;
+    color:         #1a1a2e;
+    padding-right: 36px;
+}
+
+.ebc-modal-inner .ebc-modal-event-info,
+.ebc-modal-event-info {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 20px;
+    padding: 10px 14px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    line-height: 1.8;
+    border-left: 3px solid #1a1a2e;
+}
+
+/* ── Form ── */
+.ebc-form-row { margin-bottom: 16px; }
+
+.ebc-form-row label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.ebc-form-row-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.ebc-form-row-2col label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.ebc-form-row input[type="text"],
+.ebc-form-row input[type="email"],
+.ebc-form-row input[type="tel"],
+.ebc-form-row input[type="number"],
+.ebc-form-row textarea,
+.ebc-form-row-2col input {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 300;
+    box-sizing: border-box;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.ebc-form-row input:focus,
+.ebc-form-row textarea:focus,
+.ebc-form-row-2col input:focus {
+    border-color: #2563eb;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+}
+
+.ebc-field-hint { font-size: 12px; color: #888; margin: 4px 0 0; }
+
+.ebc-rodo label {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    font-size: 12px;
+    color: #555;
+    font-weight: 300;
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+.ebc-rodo input[type="checkbox"] { margin-top: 2px; flex-shrink: 0; }
+
+.ebc-btn-submit {
+    background:  #1a1a2e;
+    color:       #fff;
+    border:      none;
+    padding:     13px 24px;
+    border-radius: 6px;
+    cursor:      pointer;
+    font-size:   15px;
+    font-weight: 700;
+    width:       100%;
+    transition:  background .2s;
+    margin-top:  4px;
+}
+
+.ebc-btn-submit:hover    { background: #2563eb; }
+.ebc-btn-submit:disabled { background: #93c5fd; cursor: not-allowed; }
+
+#ebc-booking-result { margin-bottom: 14px; }
+
+.ebc-alert-success {
+    background: #d1fae5;
+    color: #065f46;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 15px;
+    border: 1px solid #a7f3d0;
+}
+
+.ebc-alert-error {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    border: 1px solid #fecaca;
+}
+
+/* ── Responsive — mobile-first improvements ─────────────────────────────── */
+
+/* Tablet (481–700 px) */
+@media (max-width: 700px) {
+    .ebc-wrapper {
+        /* Tighter padding so calendar doesn't overflow on narrow screens */
+        padding: 0 4px;
+        box-sizing: border-box;
+    }
+
+    /* Calendar cells: shorter, tighter */
+    .ebc-day        { min-height: 52px; padding: 2px 3px; }
+    .ebc-day-name   { font-size: 9px !important; padding: 7px 1px; letter-spacing: 0; }
+    .ebc-day-number { font-size: 10px; width: 20px; height: 20px; }
+
+    /* Events in grid: ultra-compact, time always hidden */
+    .ebc-event             { font-size: 9px !important; padding: 1px 3px; margin-bottom: 1px; border-radius: 3px; }
+    .ebc-event-cal-time    { display: none; }
+    .ebc-tag-full          { display: none; }   /* saves horizontal space on tiny cells */
+
+    /* Navigation stacks vertically */
+    .ebc-nav         { flex-direction: column; gap: 8px; text-align: center; }
+    .ebc-month-title { font-size: 18px !important; }
+    .ebc-nav-btn     { font-size: 13px; padding: 7px 18px; width: 100%; }
+
+    /* Filters stack */
+    .ebc-filters  { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .ebc-legend   { margin-left: 0; }
+
+    /* Event cards */
+    .ebc-event-card         { padding: 14px 16px; }
+    .ebc-event-card-header  { flex-direction: column; align-items: flex-start; }
+    .ebc-event-card-title   { font-size: 16px !important; }
+
+    /* Form */
+    .ebc-form-row-2col { grid-template-columns: 1fr; }
+
+    /* Modal: full-width on small screens */
+    .ebc-modal-inner { padding: 20px 16px; border-radius: 8px; }
+    .ebc-modal-inner h3 { font-size: 17px !important; }
+}
+
+/* Very small phones (≤ 400px) */
+@media (max-width: 400px) {
+    .ebc-day-name { font-size: 8px !important; padding: 6px 0; }
+    .ebc-day      { min-height: 42px; padding: 1px 2px; }
+    .ebc-event    { font-size: 8px !important; }
+}

@@ -1,0 +1,41 @@
+/* ─── Events Booking Calendar — Admin Styles ─── */
+
+.ebc-form-box {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-top: 8px;
+}
+
+.ebc-form-box h2 {
+    margin-top: 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
+}
+
+/* Color picker swatch fix */
+.wp-picker-container .wp-color-result {
+    vertical-align: middle;
+}
+
+/* Logo preview */
+.ebc-logo-preview {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px;
+    background: #f9f9f9;
+}
+
+/* Bookings table quick-status */
+.ebc-quick-status {
+    font-size: 12px;
+    padding: 3px 6px;
+    max-width: 130px;
+}
+
+/* Tablenav bulk bar */
+.tablenav.top {
+    margin-bottom: 8px;
+}
